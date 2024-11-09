@@ -1,9 +1,9 @@
-# Helping SRI Coffee to choose their physical store locations
+# Helping SRI Coffee to choose their physical outlet locations
 ## Objective
 **The goal of this project is to analyze the sales data of SRI Coffee, a company that has been selling its products online since January 2023, and to recommend the top three major cities in India for opening their physical shops based on consumer demand and sales performance.**
 
 ## Recommendations
-After analyzing the data, the recommended top three cities for new store openings are:
+After analyzing the data, the recommended top three cities for new store openings & reasons behind them are:
   
 **City 1: Pune**  
 
@@ -37,7 +37,7 @@ After analyzing the data, the recommended top three cities for new store opening
    What is the total revenue generated from coffee sales across all cities in the last quarter of 2023?
  ```sql
 SELECT ci.city_name, 
-	     SUM(s.total) AS total_revenue
+       SUM(s.total) AS total_revenue
 FROM sales AS s
 JOIN customers AS c
 ON s.customer_id=c.customer_id
@@ -164,4 +164,58 @@ ON ci.city_id=c.city_id
 GROUP BY ci.city_name
 ORDER BY 2 DESC
 ```
+9. **Monthly Sales Growth**  
+     Calculate the percentage growth(or decline) in sales over different month by each city
+```sql
+WITH monthly_sales
+AS 
+(
+SELECT ci.city_name,
+       EXTRACT(MONTH FROM sale_date) AS month,
+       EXTRACT(YEAR FROM sale_date) AS year,
+       SUM(s.total) AS total_sales
+FROM sales AS s
+JOIN customers AS c
+ON s.customer_id=c.customer_id
+JOIN city AS ci
+ON ci.city_id=c.city_id
+GROUP BY 1,2,3
+ORDER BY 1,3,2
+),
+growth_ratio AS
+(SELECT city_name,
+        month,
+        year,
+        total_sales AS current_month_sales,
+        LAG(total_sales,1) OVER(PARTITION BY city_name ORDER BY year,month) AS last_month_sales
+FROM monthly_sales
+)
+SELECT city_name,
+       month,
+       year,
+       current_month_sales,
+       last_month_sales,
+       ROUND((current_month_sales-last_month_sales)::numeric/last_month_sales::numeric*100,2) AS growth_percentage
+FROM growth_ratio
+WHERE last_month_sales IS NOT NULL
+```
+10. **Market Potential Analysis**  
+    Identify top 3 city based on highest sales, return city name, total sale, total rent, total customers, estimated  coffee consumer
+```sql
 
+SELECT ci.city_name, 
+       SUM(s.total) AS total_sales,
+       SUM(ci.estimated_rent) AS total_rent,
+       COUNT(DISTINCT s.customer_id) AS total_customer,
+       ROUND((ci.population*0.25)/1000000,2) AS estimated_coffee_consumers_in_millions,
+       ROUND(SUM(s.total)::numeric/COUNT(DISTINCT s.customer_id)::numeric,2) AS avg_sales_per_customer,
+       ROUND(AVG(ci.estimated_rent)::numeric/COUNT(DISTINCT s.customer_id)::numeric,2) AS avg_rent_per_customer
+FROM sales AS s
+JOIN customers AS c
+ON s.customer_id=c.customer_id
+JOIN city AS ci
+ON ci.city_id=c.city_id
+GROUP BY ci.city_name, 5
+ORDER BY 2 DESC
+
+```
