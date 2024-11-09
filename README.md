@@ -1,1 +1,1 @@
-# Helping-a-coffee-shop-to-choose-new-store-location-using-queries-of-SQL
+# Helping a coffee shop to choose new store location 
