@@ -4,19 +4,23 @@
 
 ## Recommendations
 After analyzing the data, the recommended top three cities for new store openings are:
-
+  
 **City 1: Pune**  
-1. Highest total revenue generator.                                                                                                                                      2. Low average rent per customer.                                                                                                                                        3. Average sales per customer is very high. 
+
+1)Highest total revenue generator.<br/>   
+2)Low average rent per customer.<br/>  
+3)Average sales per customer is very high.<br/>  
 
 **City 2: Delhi**  
-1)Highest estimated coffee consumers. 
-2)2nd highest unique customers.
-3)Average rent per customer is 330 (which is under 500).
 
-**City 3: Jaipur**  
-1)Highest unique customers. 
-2)Lowest average rent per customer.
-3)Average rent per customer is 330 (which is under 500).
+1)Highest estimated coffee consumers.<br/>   
+2)2nd highest unique customers.<br/>  
+3)Average rent per customer is 330 (which is under 500).<br/>  
+
+**City 3: Jaipur** 
+
+1)Highest unique customers.<br/>   
+2)Lowest average rent per customer.<br/>    
 
 ![Company Logo](https://github.com/TanvirRaihanKhan/Helping-a-Coffee-Shop-to-expand-their-business-with-help-of-SQL/blob/main/cofee_store.jpg)
 
@@ -24,9 +28,10 @@ After analyzing the data, the recommended top three cities for new store opening
 1. **Coffee Consumers Count**  
    How many people in each city are estimated to consume coffee, given that 25% of the population does?
 ```sql
-SELECT city_name, ROUND((population*0.25)/1000000,2) AS cofee_consumers_in_millions, city_rank
-FROM city
-ORDER BY 2 DESC;
+ SELECT city_name,
+        ROUND((population*0.25)/1000000,2) AS cofee_consumers_in_millions
+ FROM city
+ ORDER BY 2 DESC;
 ```
    
 
