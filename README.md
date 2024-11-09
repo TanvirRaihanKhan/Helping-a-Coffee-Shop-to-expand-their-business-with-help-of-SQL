@@ -6,8 +6,8 @@
 After analyzing the data, the recommended top three cities for new store openings are:
 
 **City 1: Pune**  
-1)Highest total revenue generator. 
-2)Low average rent per customer.
+1)Highest total revenue generator./n 
+2)Low average rent per customer./n
 3)Average sales per customer is very high.
 
 **City 2: Delhi**  
