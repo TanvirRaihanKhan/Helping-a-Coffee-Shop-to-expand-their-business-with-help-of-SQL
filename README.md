@@ -33,6 +33,7 @@ After analyzing the data, the recommended top three cities for new store opening
  FROM city
  ORDER BY 2 DESC;
 ```
+
 2. **Total Revenue from Coffee Sales**  
    What is the total revenue generated from coffee sales across all cities in the last quarter of 2023?
  ```sql
@@ -50,6 +51,7 @@ WHERE
 GROUP BY ci.city_name
 ORDER BY 2 DESC
 ```
+
 3. **Sales Count for Each Product**  
    How many units of each coffee product have been sold?
 ```sql
@@ -61,6 +63,7 @@ ON s.product_id=p.product_id
 GROUP BY 1
 ORDER BY 2 DESC
 ```
+
 4. **Average per customer sales per City**  
    What is the average sales amount per customer in each city?
 ```sql
@@ -76,6 +79,7 @@ ON ci.city_id=c.city_id
 GROUP BY ci.city_name
 ORDER BY 2 DESC
 ```
+
 5. **City Population and Coffee Consumers (25%)**  
    Provide a list of cities along with their populations and estimated coffee consumers.
 ```sql
@@ -114,6 +118,7 @@ JOIN customers_table
 ON city_table.city_name=customers_table.city_name
 ORDER BY 2 DESC
 ```
+
 6. **Top Selling Products by City**  
    What are the top 3 selling products in each city based on sales volume?
 ```sql
@@ -137,6 +142,7 @@ GROUP BY 1,2
 ) AS t1
 WHERE Rank<=3
 ```
+
 7. **Customer Segmentation by City**  
    How many unique customers are there in each city who have purchased coffee products?
 ```sql
@@ -150,6 +156,7 @@ ON s.customer_id=c.customer_id
 WHERE s.product_id<=14
 GROUP BY 1
 ```
+
 8. **Average Sale vs Average Rent**  
    Find each city and their average sales per customer and avg rent per customer
 ```sql
@@ -164,6 +171,7 @@ ON ci.city_id=c.city_id
 GROUP BY ci.city_name
 ORDER BY 2 DESC
 ```
+
 9. **Monthly Sales Growth**  
      Calculate the percentage growth(or decline) in sales over different month by each city
 ```sql
@@ -199,6 +207,7 @@ SELECT city_name,
 FROM growth_ratio
 WHERE last_month_sales IS NOT NULL
 ```
+
 10. **Market Potential Analysis**  
     Identify top 3 city based on highest sales, return city name, total sale, total rent, total customers, estimated  coffee consumer
 ```sql
